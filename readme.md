@@ -4,22 +4,34 @@
 ## Examples ##
 
 ### Only alphanumeric ###
+```js
 $('.sample1').alphanumeric();
+```
 
 ### Only alphanumeric + dot(.) + comma (,) and space ###
+```js
 $('.sample2').alphanumeric({allow:"., "});
+```
 
 ### Only lowercase alpha characters ###
+```js
 $('.sample3').alpha({nocaps:true});
+```
 
 ### Only numeric characters ###
+```js
 $('.sample4').numeric();
+```
 
 ### Only numeric characters and some exceptions like dot(.) ###
+```js
 $('.sample5').numeric({allow:"."});
+```
 
 ### Custom rule and define only certain characters to prevent like dot (.) one (1) and a (a) ###
+```js
 $('.sample6').alphanumeric({ichars:'.1a'});
+```
 
 ## API Functions ##
 1. alphanumeric - allow both alphabet and numeric characters
