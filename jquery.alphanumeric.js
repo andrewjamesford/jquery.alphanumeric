@@ -30,7 +30,6 @@
         regex = new RegExp(options.allow, 'gi');
 
         ch = (options.ichars + options.nchars).replace(regex, '');
-        console.log(ch);
         input.keypress(function (e) {
             var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
