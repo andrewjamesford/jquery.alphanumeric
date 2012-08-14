@@ -5,7 +5,8 @@
             options = $.extend({
                 ichars: '!@#$%^&*()+=[]\\\';,/{}|":<>?~`.- _',
                 nchars: '',
-                allow: ''
+                allow: '',
+                decimal: 0
             }, p),
             s = options.allow.split(''),
             i = 0,
@@ -26,15 +27,31 @@
         }
 
         options.allow = s.join('|');
-
         regex = new RegExp(options.allow, 'gi');
-        ch = (options.ichars + options.nchars).replace(regex, '');
 
+        ch = (options.ichars + options.nchars).replace(regex, '');
+        console.log(ch);
         input.keypress(function (e) {
             var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
             if (ch.indexOf(key) != -1 && !e.ctrlKey) {
                 e.preventDefault();
+            }
+
+            if (options.decimal === 1) {
+                var decimalRegEx = new RegExp(/^[0-9]+(\.[0-9]{1,2})?$/);
+                var value = input.val();
+                var n = decimalRegEx.test(value+key);
+                var sItems = value + key;
+                var noOfPeriods = sItems.split(".").length;
+                if (n === false) {
+                    if (key !== ".") {
+                        e.preventDefault();
+                    }
+                    if (noOfPeriods > 2) {
+                        e.preventDefault();
+                    }
+                }
             }
         });
 
@@ -67,6 +84,15 @@
         var nm = '1234567890';
         return this.each(function () {
             $(this).alphanumeric($.extend({ nchars: nm }, p));
+        });
+    };
+
+    $.fn.decimal = function (p) {
+        var az = 'abcdefghijklmnopqrstuvwxyz',
+            aZ = az.toUpperCase();
+
+        return this.each(function () {
+          $(this).alphanumeric($.extend({ nchars: az + aZ, allow:".", decimal: 1} , p));
         });
     };
 })(jQuery);
